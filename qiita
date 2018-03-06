@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+# coding:utf-8
+
+import sys
+import requests
+import json
+
+params = sys.argv
+markdown = open(params[1]).read() # インライン引数に記事のmarkdownファイルを指定
+
+url = 'https://qiita.com/api/v2/items' # エンドポイント
+token = '****************************' # トークンを設定
+
+headers = {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json'
+}
+
+
+title = input('Title : ') # 記事のタイトル
+tags = input('Tag : ').split() # スペース区切りでタグ入力
+
+tag_data = [{'name': tag} for tag in tags]
+post_data = {
+    'body': markdown,
+    'title': title,
+    'tags': tag_data
+    'tweet' => True,
+}
+
+r = requests.post(url, headers=headers, data=json.dumps(post_data))
